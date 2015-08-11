@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bugs.css">
+     <script src="js/jquery-2.1.4.min.js"></script>
+
+     <script language="javascript">
+
+        function showBugDetail(id) {
+            dialog = "#detail-" + id
+            $(dialog).toggle();
+        }
+
+        function triage(id, keywords) {
+            url = "https://bugzilla.redhat.com/process_bug.cgi";
+            if($.inArray("Triaged", keywords) != -1) {
+                alert("This bug is already triaged");
+                return;
+            }
+            else {
+                keywords.push("Triaged");
+            }
+            data = 'id=' + id + '&keywords=' + keywords.toString();
+            alert("Sending: " + data); 
+            $.post(url, data, function(data, status){
+                alert("Data: " + data + "\nStatus: " + status);
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <div class="logo-crop">
+
+        <img src="https://access.redhat.com/chrome_themes/nimbus/img/l_redhat-lg.png"></img>
+        <div class="main-title">
+                OPM and Packstack Bug List
+        </div>
+
+    </div>
+    <br />
+
+<div class="bug-column">
+        <div class="bug-title">
+            Priority: high, ugrent
+        </div>
+{% block priority %}{% endblock %}
+</div>
+
+<div class="bug-column">
+        <div class="bug-title">
+            Severity: high, ugrent
+        </div>
+{% block severity %}{% endblock %}
+</div>
+
+<div class="bug-column">
+        <div class="bug-title">
+            Bug List: NEW, ASSIGNED, POST
+        </div>
+{% block status %}{% endblock %}
+</div>
+
+</body>
+</html>

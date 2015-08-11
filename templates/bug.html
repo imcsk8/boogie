@@ -1,0 +1,230 @@
+
+{% extends "templates/layout.html" %}
+{% block priority %}
+{% for bug in priority_bugs %}
+    <div class="bug-row">
+        <div class="url-id">
+            <a target=_blank href="https://bugzilla.redhat.com/show_bug.cgi?id={{bug.id}}">{{bug.id}}</a>
+            <button onClick="showBugDetail({{bug.id}})" class="detail-button">Detail</button>
+
+            <!-- Bug detail -->
+            <div id="detail-{{bug.id}}" class="bug-detail">
+                <div class="atrribute-detail">
+                         <span class="detail-field-title">ID: </span><a target=_blank href="https://bugzilla.redhat.com/show_bug.cgi?id={{bug.id}}">{{bug.id}}</a>
+                </div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Summary: </span>{{bug.summary}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Priority: </span>{{bug.priority}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Severity: </span>{{bug.severity}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Status: </span>{{bug.status}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Owner: </span>{{bug.assigned_to}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Witeboard: </span>{{bug.whiteboard}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Flags: </span>
+                     {% for flag in bug.flags %}
+                       {{flag}},
+                     {% endfor %}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Keywords: </span>{{bug.keywords}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Blocks: </span>
+                     {% for blocked in bug.blocks %}
+                        {{blocked}},
+                     {% endfor %}
+				</div>
+                <div class="atrribute-detail">
+                     <span class="detail-field-title">Description: </span><pre>{{bug.description}}</pre>
+				</div>
+                <div class="bug-comments">
+                     <span class="detail-field-title">Comments</span>
+                     <p>{{comments}}</p>
+                    <ol>
+                    {% for comment in bug.comments %}
+                        <li class="comment-entry"><pre>{{comment.text}}</pre>
+                    {% endfor %}
+                    </ol>
+                </div>
+            </div>
+            <!-- Bug detail -->
+
+        </div>
+        <div class="bug-atrribute"><span class="detail-field-title">Product: </span>{{bug.product}}</div>
+        <div class="bug-atrribute"><span class="detail-field-title">Component: </span>{{bug.component}}</div>
+        <div class="bug-atrribute"><span class="detail-field-title">Status: </span>{{bug.status}}</div>
+        <div class="bug-atrribute"><span class="detail-field-title">Owner: </span>{{bug.assigned_to}}</div>
+        <div class="bug-atrribute"><span class="detail-field-title">Blocks: </span>
+          {% for blocked in bug.blocks %}
+            {{blocked}},
+          {% endfor %}
+        </div>
+        <div class="bug-atrribute"><span class="detail-field-title">Summary: </span>{{bug.summary}}</div>
+        <button onClick="triage({{bug.id}}, {{bug.keywords}})" class="triage-button">Triage/Trello</button>
+    </div>
+{% endfor %}
+{% endblock %}
+
+{% block severity %}
+{% for bug in severity_bugs %}
+    <div class="bug-row">
+        <div class="url-id">
+            <a target=_blank href="https://bugzilla.redhat.com/show_bug.cgi?id={{bug.id}}">{{bug.id}}</a>
+            <button onClick="showBugDetail({{bug.id}})" class="detail-button">Detail</button>
+
+            <!-- /Bug detail -->
+            <div id="detail-{{bug.id}}" class="bug-detail">
+                <div class="atrribute-detail">
+                         <span class="detail-field-title">ID: </span><a target=_blank href="https://bugzilla.redhat.com/show_bug.cgi?id={{bug.id}}">{{bug.id}}</a>
+                </div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Summary: </span>{{bug.summary}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Priority: </span>{{bug.priority}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Severity: </span>{{bug.severity}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Status: </span>{{bug.status}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Owner: </span>{{bug.assigned_to}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Witeboard: </span>{{bug.whiteboard}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Flags: </span>
+                     {% for flag in bug.flags %}
+                       {{flag}},
+                     {% endfor %}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Keywords: </span>{{bug.keywords}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Blocks: </span>
+                     {% for blocked in bug.blocks %}
+                        {{blocked}},
+                     {% endfor %}}
+				</div>
+                <div class="atrribute-detail">
+                     <span class="detail-field-title">Description: </span><pre>{{bug.description}}</pre>
+				</div>
+                <div class="bug-comments">
+                     <span class="detail-field-title">Comments</span>
+                    <ol>
+                    {% for comment in bug.comments %}
+                        <li class="comment-entry"><pre>{{comment.text}}</pre>
+                    {% endfor %}
+                    </ol>
+                </div>
+            </div>
+            <!-- /Bug detail -->
+
+        </div>
+        <div class="bug-atrribute"><span class="detail-field-title">Product: </span>{{bug.product}}</div>
+        <div class="bug-atrribute"><span class="detail-field-title">Component: </span>{{bug.component}}</div>
+        <div class="bug-atrribute"><span class="detail-field-title">Status: </span>{{bug.status}}</div>
+        <div class="bug-atrribute"><span class="detail-field-title">Owner: </span>{{bug.assigned_to}}</div>
+        <div class="bug-atrribute"><span class="detail-field-title">Blocks: </span>
+          {% for blocked in bug.blocks %}
+            {{blocked}},
+          {% endfor %}
+        </div>
+        <div class="bug-atrribute"><span class="detail-field-title">Summary: </span>{{bug.summary}}</div>
+        <button onClick="triage({{bug.id}}, {{bug.keywords}})" class="triage-button">Triage/Trello</button>
+    </div>
+{% endfor %}
+{% endblock %}
+
+{% block status %}
+{% for bug in status_buglist %}
+    <div class="bug-row">
+        <div class="url-id">
+            <a target=_blank href="https://bugzilla.redhat.com/show_bug.cgi?id={{bug.id}}">{{bug.id}}</a>
+            <button onClick="showBugDetail({{bug.id}})" class="detail-button">Detail</button>
+
+            <!-- Bug detail -->
+            <div id="detail-{{bug.id}}" class="bug-detail">
+                <div class="atrribute-detail">
+                         <span class="detail-field-title">ID: </span><a target=_blank href="https://bugzilla.redhat.com/show_bug.cgi?id={{bug.id}}">{{bug.id}}</a>
+                </div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Summary: </span>{{bug.summary}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Priority: </span>{{bug.priority}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Severity: </span>{{bug.severity}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Status: </span>{{bug.status}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Owner: </span>{{bug.assigned_to}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Witeboard: </span>{{bug.whiteboard}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Flags: </span>
+                     {% for flag in bug.flags %}
+                       {{flag}},
+                     {% endfor %}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Keywords: </span>{{bug.keywords}}
+				</div>
+                <div class="atrribute-detail">
+					 <span class="detail-field-title">Blocks: </span>
+                     {% for blocked in bug.blocks %}
+                        {{blocked}},
+                     {% endfor %}
+				</div>
+                <div class="atrribute-detail">
+                        <span class="detail-field-title">Description: </span><pre>{{bug.description}}</pre>
+				</div>
+                <div class="bug-comments">
+                     <span class="detail-field-title">Comments</span>
+                    <ol>
+                    {% for comment in bug.comments %}
+                        <li class="comment-entry"><pre>{{comment.text}}</pre>
+                    {% endfor %}
+                    </ol>
+                </div>
+            </div>
+            <!-- /Bug detail -->
+
+        </div>
+        <div class="bug-atrribute"><span class="detail-field-title">Product: </span>{{bug.product}}</div>
+        <div class="bug-atrribute"><span class="detail-field-title">Component: </span>{{bug.component}}</div>
+        <div class="bug-atrribute"><span class="detail-field-title">Status: </span>{{bug.status}}</div>
+        <div class="bug-atrribute"><span class="detail-field-title">Owner: </span>{{bug.assigned_to}}</div>
+        <div class="bug-atrribute"><span class="detail-field-title">Blocks: </span>
+          {% for blocked in bug.blocks %}
+            {{blocked}},
+          {% endfor %}
+        </div>
+        <div class="bug-atrribute"><span class="detail-field-title">Summary: </span>{{bug.summary}}</div>
+        <button onClick="triage({{bug.id}}, {{bug.keywords}})" class="triage-button">Triage/Trello</button>
+    </div>
+{% endfor %}
+{% endblock %}
+
+
+
